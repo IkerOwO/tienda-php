@@ -40,36 +40,20 @@
 			<div class="form-group col-md-6">
 				<label for="inputTipo">Tipo de instrumento</label>
 			  <select id="f_tipo" name="f_tipo" class="form-control" required>
+				<option value="" selected>Elige...</option>
 				<?php 
 					include ("./conexion.php");
 
-					// Hacemos un array vacio en el que meteremos el numero de ids que hay en la tabla
-					$ids = [];
-					
-					$sql = "SELECT idTipo FROM tipos";
+					// PREPARAR QUERY
+					$sql = "SELECT * FROM tipos";
+					// EJECUTAMOS LA QUERY Y GUARDAMOS LOS REGISTROS SELECCIONADOS
 					$query = mysqli_query($conexion, $sql) or die("ERROR AL REALIZAR EL SELECT");
-					/*
-						Si el numero de filas es mayor a 0
-						El fetch_assoc(), devuelve una fila de datos del conjunto de resultados y la retorna como un array "asociativo" -- Segun la web de PHP btw :(
-					*/
-					if ($query->num_rows > 0) {
-						while ($row = $query->fetch_assoc()) {
-							$ids[] = $row['idTipo'];
-						}
+					// LEER LA INFORMACION DE $query
+					while ($linea=mysqli_fetch_array($query)) {
+						echo "<option value='$linea[idTipo]'>$linea[tipo]</option>";
 					}
-					// El count() cuenta todos los elementos en un array
-					for ($i = 1; $i <= count($ids); $i++) {
-						echo "<option value=$i>$i</option>";
-					}
-
 					mysqli_close($conexion);
 				?>
-				<!-- 
-				<option value="" selected>Elije...</option>
-				<option value="1">Guitarras</option>
-				<option value="2">Bajos</option>
-				<option value="3">Baterias</option>
-				<option value="4">Pianos</option>  -->
 			  </select>  
 			</div>
 		  </div>

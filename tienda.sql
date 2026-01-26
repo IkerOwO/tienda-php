@@ -2,8 +2,8 @@
 -- version 5.2.1
 -- https://www.phpmyadmin.net/
 --
--- Servidor: 127.0.0.1
--- Tiempo de generación: 21-01-2026 a las 12:29:58
+-- Servidor: 127.0.0.1:3306
+-- Tiempo de generación: 26-01-2026 a las 09:38:24
 -- Versión del servidor: 10.4.32-MariaDB
 -- Versión de PHP: 8.2.12
 
@@ -42,7 +42,8 @@ CREATE TABLE `articulos` (
 --
 
 INSERT INTO `articulos` (`idArticulo`, `articulo`, `idTipos`, `precio`, `descuento`, `detalles`, `imagen`) VALUES
-(1, 'Fender Stratocaster', 1, 120.00, 30.00, 'Guitarra clasica de fender', 'cat4.jpg');
+(3, 'Guitarra Fender', 1, 500.00, 10.00, 'Guitarra Stratocaster', ''),
+(4, 'Bajo Ibanez', 2, 200.00, 0.00, 'Bajo con cuerpo hueco ', 'icon.png');
 
 -- --------------------------------------------------------
 
@@ -63,7 +64,8 @@ INSERT INTO `tipos` (`idTipo`, `tipo`) VALUES
 (1, 'Guitarras'),
 (2, 'Bajos'),
 (3, 'Baterias'),
-(4, 'Pianos');
+(4, 'Pianos'),
+(5, 'DJ');
 
 --
 -- Índices para tablas volcadas
@@ -90,13 +92,13 @@ ALTER TABLE `tipos`
 -- AUTO_INCREMENT de la tabla `articulos`
 --
 ALTER TABLE `articulos`
-  MODIFY `idArticulo` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
+  MODIFY `idArticulo` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=5;
 
 --
 -- AUTO_INCREMENT de la tabla `tipos`
 --
 ALTER TABLE `tipos`
-  MODIFY `idTipo` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=19;
+  MODIFY `idTipo` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=20;
 
 --
 -- Restricciones para tablas volcadas
