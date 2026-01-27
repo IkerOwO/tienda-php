@@ -23,11 +23,9 @@
 		  <li class="nav-item">
 			<a class="nav-link" href="#">Link</a>
 		  </li>
-		<!--
 		  <li class="nav-item">
 			<a class="nav-link disabled" href="#" tabindex="-1" aria-disabled="true">Disabled</a>
 		  </li>
-		-->
 		</ul>
 
     <!-- Modelo de formulario -->
@@ -60,7 +58,7 @@
 		  <div class="form-row">
 			 <div class="form-group col-md-6">
 			  <label>Precio</label>
-			  <input type="number" class="form-control" name="f_precio" id="f_precio">
+			  <input type="number" step=".01" class="form-control" name="f_precio" id="f_precio">
 			</div>
 			<div class="form-group col-md-6">
 			  <label for="inputDescuento">Descuento</label>
