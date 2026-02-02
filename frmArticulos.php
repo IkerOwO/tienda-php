@@ -7,6 +7,22 @@
     <!-- Bootstrap CSS -->
 	<link href="./bootstrap/css/bootstrap.min.css" rel="stylesheet">
     <title>Formulario Articulos</title>
+
+	<script lang="js">
+		function calcularDescuento(){
+			const precio = parseFloat(document.getElementById("f_precio").value);
+			const descuento = parseFloat(document.getElementById("f_descuento").value);
+
+			// SI LOS CAMPOS DE PRECIO O DESCUENTO SON NULOS 
+			if (isNaN(precio) || isNaN(descuento)) {
+				return;
+			}
+
+			const precioFinal = precio - ((descuento / 100) * precio);
+			// toFixed PARA QUE SOLO MUESTRE 2 DECIMALES
+			document.getElementById("inputDescuento").value = precioFinal.toFixed(2);
+		}
+	</script>
   </head>
   <body>
 
@@ -15,7 +31,7 @@
 	    <img src="./img/icon.png" style="width: 50px;" draggable="false">
 		<ul class="nav justify-content-end">
 		  <li class="nav-item">
-			<a class="nav-link active" href="#">Active</a>
+			<a class="nav-link active" href="./lstArticulos.php">Ver Articulos</a>
 		  </li>
 		  <li class="nav-item">
 			<a class="nav-link" href="#">Link</a>
@@ -29,7 +45,7 @@
 		</ul>
 
     <!-- Modelo de formulario -->
-		<form action="addArticulos.php" method="post" autocomplete="off">
+		<form action="addArticulos.php" method="post" enctype="multipart/form-data" autocomplete="off">
 		  <div class="form-row mt-5">
 			<div class="form-group col-md-6">
 			  <label>Articulo</label>
@@ -62,7 +78,12 @@
 			</div>
 			<div class="form-group col-md-6">
 			  <label for="inputDescuento">Descuento</label>
-			  <input type="number" class="form-control" name="f_descuento" id="f_descuento">
+			  <input type="number" class="form-control" name="f_descuento" id="f_descuento" onblur='calcularDescuento()' >
+			</div>
+		  </div>
+		  <div class="form-group col-md-6">
+			  <label for="inputDescuento">Precio Final</label>
+			  <input type='number' class='form-control' name='inputDescuento' id='inputDescuento' readonly>
 			</div>
 		  </div>
 		  <div class="form-row">
@@ -90,6 +111,6 @@
 		<br>
      </div>
   </div>
- 
+
   </body>
 </html>

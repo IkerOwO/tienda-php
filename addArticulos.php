@@ -1,40 +1,33 @@
-<!-- CODIGO PHP -->
 <?php
-    // INCLUIR CONEXION BBDD 
-    include ("./conexion.php");
+    include("./conexion.php");
 
-    /*
-    // CON ARRAY :3
-    $myArray = array(
-        $_POST['f_articulo'],
-        $_POST['f_tipo'],
-        $_POST['f_precio'],
-        $_POST['f_descuento'],
-        $_POST['f_detalles'],
-        $_POST['f_imagen']
-    );
+    // VARIABLES
+    $art   = $_POST['f_articulo'];
+    $tipo  = $_POST['f_tipo'];
+    $precio= $_POST['f_precio'];
+    $desc  = $_POST['f_descuento'];
+    $det   = $_POST['f_detalles'];
+    $nombreImg = $_FILES['f_imagen']['name'];
+    $tmpImg    = $_FILES['f_imagen']['tmp_name'];
 
-    // QUERY CON EL ARRAY
-    $sql = "INSERT INTO articulos (idArticulo, articulo, idTipos, precio, descuento, detalles, imagen) VALUES (NULL,'$myArray[0]', '$myArray[1]', '$myArray[2]', '$myArray[3]', '$myArray[4]', '$myArray[5]')";
-    */
+    // EVITAMOS SOBREESCRITURA
+    $nombreImg = time() . "_" . $nombreImg;
+    
+    // CARPETA DESTINO
+    $destino = "./img/articulos/" . $nombreImg;
 
-    // DECLARACION DE VARIABLES
-    $art = $_POST['f_articulo'];
-    $tipo = $_POST['f_tipo'];
-    $precio = $_POST['f_precio'];
-    $desc = $_POST['f_descuento'];
-    $det = $_POST['f_detalles'];
-    $img = $_POST['f_imagen'];
+    // MOVER ARCHIVO
+    if (!move_uploaded_file($tmpImg, $destino)) {
+        die("Error al subir la imagen");
+    }
 
     // INSERT A LA BBDD
-    $sql = "INSERT INTO articulos (idArticulo, articulo, idTipos, precio, descuento, detalles, imagen) VALUES (NULL,'$art', '$tipo', '$precio', '$desc', '$det', '$img')";
-    
-    // EJECUTAR CONSULTA
+    $sql = "INSERT INTO articulos (articulo, idTipos, precio, descuento, detalles, imagen) VALUES ('$art', '$tipo', '$precio', '$desc', '$det', '$nombreImg')";
+
     mysqli_query($conexion, $sql) or die("ERROR AL REALIZAR EL INSERT");
 
-    // CERRAR LA CONEXION
     mysqli_close($conexion);
 
-    // REGRESAR A LA PAGINA ANTERIOR DE MANERA AUTOMATICA
-    header("location:frmArticulos.php");
+    // REDIRECCION
+    header("Location: frmArticulos.php");
 ?>
