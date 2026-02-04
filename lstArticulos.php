@@ -1,3 +1,12 @@
+<!-- PARA RECIBIR EL USUARIO -->
+<?php 
+   // BLOQUEAR LA SESION A CUALQUIERA QUE NO ESTE LOGUEADO
+   session_start();
+   if(!isset($_SESSION['usuario'])){
+      // MANDAR AL LOGIN
+      header('location:index.php');
+   }
+?>
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -20,12 +29,18 @@
 <body>
     <!-- MENU -->
     <div class="container">
+        <!-- PARA VER EL USUARIO UNA VEZ PASE POR EL LOGIN -->
+        <a style="float: right;" href="#"><i class="fa fa-user" aria-hidden="true"></i>&nbsp;Usuario: <?php echo"$_SESSION[usuario]";?> </a>
 	  <div class="form-group col-12">
 	    <img src="./img/icon.png" style="width: 50px;" draggable="false">
 		<ul class="nav justify-content-end">
-		  <li class="nav-item">
-			<a class="nav-link" href="./frmArticulos.php"><i class="fa fa-arrow-left" aria-hidden="true"></i>&nbsp;Volver</a>
-		  </li>
+            <li class="nav-item">
+			    <a class="nav-link" href="./frmArticulos.php"><i class="fa fa-plus" aria-hidden="true"></i>&nbsp;Nuevo Articulo</a>
+		    </li>
+            <li class="nav-item">
+			    <a class="nav-link" href="./logout.php"><i class="fa fa-times-circle" aria-hidden="true"></i>&nbsp;Salir</a>
+		    </li>
+          
 		</ul>
         <!-- TABLA -->
         <table class='table table-bordered table-striped table-hover'>
@@ -33,8 +48,9 @@
                 <th><a href="#">Imagen</a></th>
                 <th><a href="lstArticulos.php?campo=articulo">Articulo</a></th> 
                 <th><a href="lstArticulos.php?campo=tipo">Tipo</a></th> 
-                <th><a href="lstArticulos.php?campo=precio">Precio</a></th> 
+                <th><a href="lstArticulos.php?campo=precio">Precio</a></th>
                 <th><a href="lstArticulos.php?campo=descuento">Descuento</a></th> 
+                <th>Total</th> 
                 <th><a href="#">Detalles</a></th> 
             </tr>
         <?php
@@ -51,6 +67,7 @@
             $query = mysqli_query($conexion, $sql) or die("ERROR EN EL SELECT");
             // CREAMOS LAS FILAS CON LOS REGISTROS
             while($linea=mysqli_fetch_array($query)){
+                $total = $linea['precio'] - ($linea['descuento']/100)*$linea['precio'];
                 echo "
                 <tr>
                     <td><img src='./img/articulos/$linea[imagen]' draggable='false' style='width:70px;'></td>
@@ -58,6 +75,7 @@
                     <td>$linea[tipo]</td>
                     <td>$linea[precio]€</td>
                     <td>$linea[descuento]€</td>
+                    <td>$total €</td>
                     <td>$linea[detalles]</td>
                     <td align='center'><a href='delArticulo.php?id=$linea[idArticulo]' onclick=\"return confirm('¿Seguro que deseas borrar este artículo?')\"><img src='./img/trash.png' draggable='false' style='width:30px;'></a></td>
                 </tr>";

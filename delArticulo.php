@@ -1,4 +1,12 @@
 <?php
+   // BLOQUEAR LA SESION A CUALQUIERA QUE NO ESTE LOGUEADO
+   session_start();
+   if(!isset($_SESSION['usuario'])){
+      // MANDAR AL LOGIN
+      header('location:index.php');
+   }
+
+
    include ("conexion.php");
    
    // BORRAMOS TODO DEL ARTICULO QUE RECIBIMOS POR SU ID

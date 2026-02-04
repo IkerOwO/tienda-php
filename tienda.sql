@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Servidor: 127.0.0.1:3306
--- Tiempo de generación: 26-01-2026 a las 09:38:24
+-- Tiempo de generación: 03-02-2026 a las 09:36:31
 -- Versión del servidor: 10.4.32-MariaDB
 -- Versión de PHP: 8.2.12
 
@@ -31,7 +31,7 @@ CREATE TABLE `articulos` (
   `idArticulo` int(11) NOT NULL,
   `articulo` varchar(50) NOT NULL,
   `idTipos` int(11) NOT NULL,
-  `precio` decimal(5,2) NOT NULL,
+  `precio` decimal(6,2) NOT NULL,
   `descuento` decimal(5,2) NOT NULL,
   `detalles` text NOT NULL,
   `imagen` varchar(100) NOT NULL
@@ -42,8 +42,12 @@ CREATE TABLE `articulos` (
 --
 
 INSERT INTO `articulos` (`idArticulo`, `articulo`, `idTipos`, `precio`, `descuento`, `detalles`, `imagen`) VALUES
-(3, 'Guitarra Fender', 1, 500.00, 10.00, 'Guitarra Stratocaster', ''),
-(4, 'Bajo Ibanez', 2, 200.00, 0.00, 'Bajo con cuerpo hueco ', 'icon.png');
+(9, 'Piano Yamaha', 4, 1200.00, 10.00, 'Piano Grande Yamaha', 'piano1.jfif'),
+(10, 'Bateria Alesis', 3, 320.00, 0.00, 'Bateria para niños', 'drums2.png'),
+(11, 'Controladora DJ', 5, 160.00, 0.00, 'Controladora DJ Pioneer', 'dj1.jpg'),
+(12, 'Guitarra Jackson', 1, 180.00, 0.00, 'Guitarra Jackson con cuerpo dinky', 'guitarra1.png'),
+(13, 'Controladora DJ', 5, 600.95, 0.00, 'Controladora Serato', 'dj2.jpg'),
+(21, 'Guitarra Jackson', 1, 180.00, 0.00, 'Guitarra con cuerpo dinky', '1770017986_guitarra2.png');
 
 -- --------------------------------------------------------
 
@@ -67,6 +71,27 @@ INSERT INTO `tipos` (`idTipo`, `tipo`) VALUES
 (4, 'Pianos'),
 (5, 'DJ');
 
+-- --------------------------------------------------------
+
+--
+-- Estructura de tabla para la tabla `usuarios`
+--
+
+CREATE TABLE `usuarios` (
+  `email` varchar(50) NOT NULL,
+  `password` varchar(40) NOT NULL,
+  `nombreCompleto` varchar(60) NOT NULL,
+  `movil` varchar(13) NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+
+--
+-- Volcado de datos para la tabla `usuarios`
+--
+
+INSERT INTO `usuarios` (`email`, `password`, `nombreCompleto`, `movil`) VALUES
+('erdociainveike24@zaragoza.salesianos.edu', '1234', 'Iker Erdociain', '123456789'),
+('juan.apellaniz@zaragoza.salesianos.edu', '1234', 'Juan Apellaniz', '321654987');
+
 --
 -- Índices para tablas volcadas
 --
@@ -85,6 +110,12 @@ ALTER TABLE `tipos`
   ADD PRIMARY KEY (`idTipo`);
 
 --
+-- Indices de la tabla `usuarios`
+--
+ALTER TABLE `usuarios`
+  ADD PRIMARY KEY (`email`);
+
+--
 -- AUTO_INCREMENT de las tablas volcadas
 --
 
@@ -92,7 +123,7 @@ ALTER TABLE `tipos`
 -- AUTO_INCREMENT de la tabla `articulos`
 --
 ALTER TABLE `articulos`
-  MODIFY `idArticulo` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=5;
+  MODIFY `idArticulo` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=23;
 
 --
 -- AUTO_INCREMENT de la tabla `tipos`
