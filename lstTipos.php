@@ -35,7 +35,7 @@
 	    <img src="./img/icon.png" style="width: 50px;" draggable="false">
 		<ul class="nav justify-content-end">
             <li class="nav-item">
-			    <a class="nav-link" href="./frmArticulos.php"><i class="fa fa-plus" aria-hidden="true"></i>&nbsp;Nuevo Articulo</a>
+			    <a class="nav-link" href="./frmTipo.php"><i class="fa fa-plus" aria-hidden="true"></i>&nbsp;Añadir Tipo</a>
 		    </li>
             <li class="nav-item">
 			    <a class="nav-link" href="./menuadmin.php"><i class="fa fa-times-circle" aria-hidden="true"></i>&nbsp;Volver</a>
@@ -45,39 +45,24 @@
         <!-- TABLA -->
         <table class='table table-bordered table-striped table-hover'>
             <tr style="text-align: center;"> 
-                <th><a href="#">Imagen</a></th>
-                <th><a href="lstArticulos.php?campo=articulo">Articulo</a></th> 
-                <th><a href="lstArticulos.php?campo=tipo">Tipo</a></th> 
-                <th><a href="lstArticulos.php?campo=precio">Precio</a></th>
-                <th><a href="lstArticulos.php?campo=descuento">Descuento</a></th> 
-                <th>Total</th> 
-                <th><a href="#">Detalles</a></th> 
+                <th>IdTipo</th>
+                <th>Tipos</th>
+                <th>Borrar</th>
             </tr>
         <?php
             include ("conexion.php");
-            // PREGUNTAMOS SI EL PARAMETRO campo LLEVA CONTENIDO
-            $ordenar = "";
-            if(isset($_GET['campo'])){
-                $ordenar = "ORDER BY $_GET[campo]";
-            }
-            
+
             // QUERY CON UNION
-            $sql = "SELECT a.*, t.* FROM articulos as a, tipos as t WHERE (a.idTipos = t.idTipo) $ordenar";
+            $sql = "SELECT * FROM tipos";
 
             $query = mysqli_query($conexion, $sql) or die("ERROR EN EL SELECT");
             // CREAMOS LAS FILAS CON LOS REGISTROS
             while($linea=mysqli_fetch_array($query)){
-                $total = $linea['precio'] - ($linea['descuento']/100)*$linea['precio'];
                 echo "
                 <tr>
-                    <td><img src='./img/articulos/$linea[imagen]' draggable='false' style='width:70px;'></td>
-                    <td>$linea[articulo]</td>
+                    <td>$linea[idTipo]</td>
                     <td>$linea[tipo]</td>
-                    <td>$linea[precio]€</td>
-                    <td>$linea[descuento]€</td>
-                    <td>$total €</td>
-                    <td>$linea[detalles]</td>
-                    <td align='center'><a href='delArticulo.php?id=$linea[idArticulo]' onclick=\"return confirm('¿Seguro que deseas borrar este artículo?')\"><img src='./img/trash.png' draggable='false' style='width:30px;'></a></td>
+                    <td align='center'><a href='delTipo.php?id=$linea[idTipo]' onclick=\"return confirm('¿Seguro que deseas borrar este tipo?')\"><img src='./img/trash.png' draggable='false' style='width:30px;'></a></td>
                 </tr>";
             }
             mysqli_close($conexion);

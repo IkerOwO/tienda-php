@@ -7,7 +7,7 @@
     $user = $_POST['f_user'];
     $movil = $_POST['f_movil'];
 
-    $sql = "INSERT INTO usuarios (email, password, nombreCompleto, movil) VALUES ('$mail', '$passEncrypted', '$user', '$movil')"; 
+    $sql = "INSERT INTO usuarios (email, password, nombreCompleto, movil, rol) VALUES ('$mail', '$passEncrypted', '$user', '$movil', 0)"; 
 
     mysqli_query($conexion, $sql) or die("ERROR AL REALIZAR EL INSERT");
 

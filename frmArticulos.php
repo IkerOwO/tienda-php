@@ -2,7 +2,7 @@
 <?php 
     // BLOQUEAR LA SESION A CUALQUIERA QUE NO ESTE LOGUEADO
 	session_start();
-	if(!isset($_SESSION['usuario'])){
+	if(!isset($_SESSION['esAdmin'])){
 		// MANDAR AL LOGIN
 		header('location:index.php');
 	}
@@ -41,12 +41,12 @@
   	<!-- MENU -->
 	<div class="container">
 		<!-- PARA VER EL USUARIO UNA VEZ PASE POR EL LOGIN -->
-        <a style="float: right;" href="#"><i class="fa fa-user" aria-hidden="true"></i>&nbsp;Usuario: <?php echo"$_SESSION[usuario]";?> </a>
+        <a style="float: right;" href="#"><i class="fa fa-user" aria-hidden="true"></i>&nbsp;Usuario: <?php echo"$_SESSION[nombre]";?> </a>
 	  <div class="form-group col-8 offset-2">
 	    <img src="./img/icon.png" style="width: 50px;" draggable="false">
 		<ul class="nav justify-content-end">   
 			<li class="nav-item">
-				<a class="nav-link active" href="./lstArticulos.php"><i class="fa fa-arrow-left" aria-hidden="true"></i>&nbsp;Volver</a>
+				<a class="nav-link active" href="./menuadmin.php"><i class="fa fa-arrow-left" aria-hidden="true"></i>&nbsp;Volver</a>
 		  	</li>
 		</ul>
 

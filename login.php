@@ -18,9 +18,20 @@
     if($num == 0){
         echo "EMAIL O CLAVE INCORRECTOS <br><a href='index.php'>Volver</a>";
     } else {
-        // VARIBLE DE SESION
-        $_SESSION['usuario'] = $mail;
-        header("location:lstArticulos.php");
+
+        while($linea = mysqli_fetch_array($registros)){
+            // VARIBLES DE SESION (email -> Compras | nombreCompleto -> Usuario Identificado)
+            $_SESSION['usuario'] = $linea['email'];
+            $_SESSION['nombre'] = $linea['nombreCompleto'];
+            $_SESSION['esAdmin'] = $linea['rol'];
+
+            if($_SESSION['esAdmin'] == 1){
+                header("location:menuadmin.php");
+                
+            } else {
+                header("location:portada.php");
+            }
+        }
     }
 
     mysqli_close($conexion);
